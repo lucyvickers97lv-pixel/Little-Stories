@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pawtrait Studio by LRT | Hand-Drawn Pet Portraits, Liverpool</title>
+<meta name="description" content="Custom hand-drawn pet portraits in coloured pencil and graphite by Lucy, Pawtrait Studio by LRT, Liverpool. Commission a timeless keepsake or memorial portrait of your pet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f1e8;
+    --paper-2:#efe7da;
+    --mat:#fffdf9;
+    --ink:#23201c;
+    --graphite:#5c574f;
+    --line:#d9cfbf;
+    --accent:#a4553a;      /* warm terracotta, like a sanguine pencil */
+    --accent-dark:#853f28;
+    --radius:4px;
+    --serif:"Cormorant Garamond", Georgia, serif;
+    --sans:"Karla", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing:-.01em}
+  h2{font-size:clamp(2.1rem,4.5vw,3rem);margin-bottom:.4em}
+  .eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.8em;display:block}
+  .lede{color:var(--graphite);max-width:60ch}
+  section{padding:96px 0}
+  .btn{display:inline-block;padding:14px 26px;border-radius:var(--radius);background:var(--ink);color:var(--paper);text-decoration:none;font-weight:700;font-size:.95rem;letter-spacing:.02em;border:1.5px solid var(--ink);transition:background .2s,color .2s;cursor:pointer;font-family:var(--sans)}
+  .btn:hover{background:var(--accent);border-color:var(--accent)}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+  /* The "mat" frame — echoes how the portraits are actually presented */
+  .mat{background:var(--mat);padding:14px;box-shadow:0 1px 2px rgba(0,0,0,.06),0 12px 30px -12px rgba(60,40,20,.25)}
+  .mat img{outline:1px solid #1d1b18;outline-offset:-1px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:20;background:rgba(246,241,232,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{font-family:var(--serif);font-size:1.55rem;font-weight:600;text-decoration:none;line-height:1}
+  .logo small{display:block;font-family:var(--sans);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--graphite);margin-top:4px;font-weight:500}
+  .nav ul{display:flex;gap:28px;list-style:none;align-items:center}
+  .nav ul a{text-decoration:none;font-size:.92rem;font-weight:500}
+  .nav ul a:not(.btn):hover{color:var(--accent)}
+  .nav .btn{padding:10px 18px}
+  .menu-toggle{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;color:var(--ink)}
+
+  /* Hero */
+  .hero{padding:72px 0 96px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .hero h1{font-size:clamp(2.8rem,6.4vw,5rem);margin-bottom:.35em}
+  .hero h1 em{font-style:italic;color:var(--accent)}
+  .hero p{font-size:1.12rem;color:var(--graphite);max-width:46ch;margin-bottom:32px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-meta{display:flex;gap:28px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .hero-meta div{font-size:.85rem;color:var(--graphite)}
+  .hero-meta strong{display:block;font-family:var(--serif);font-size:1.6rem;color:var(--ink);font-weight:600}
+  .hero-art{position:relative}
+  .hero-art .mat{transform:rotate(1.5deg);max-width:440px;margin-left:auto}
+  .hero-art .note{position:absolute;left:-10px;bottom:28px;background:var(--ink);color:var(--paper);padding:12px 16px;font-size:.82rem;max-width:210px;transform:rotate(-2deg);border-radius:var(--radius)}
+
+  /* Gallery */
+  #gallery{background:var(--paper-2)}
+  .section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+  .gallery{columns:3 280px;column-gap:28px}
+  .gallery figure{break-inside:avoid;margin-bottom:28px;cursor:zoom-in;transition:transform .25s}
+  .gallery figure:hover{transform:translateY(-4px)}
+  .gallery figcaption{font-size:.82rem;color:var(--graphite);padding:10px 2px 0;display:flex;justify-content:space-between}
+
+  /* Pricing */
+  .prices{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+  .price{background:var(--mat);border:1px solid var(--line);padding:36px 30px;border-radius:var(--radius);display:flex;flex-direction:column}
+  .price.featured{border:1.5px solid var(--ink);position:relative}
+  .price.featured::before{content:"Most popular";position:absolute;top:-12px;left:30px;background:var(--accent);color:#fff;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;font-weight:700}
+  .price h3{font-size:1.6rem;margin-bottom:4px}
+  .price .size{color:var(--graphite);font-size:.9rem}
+  .price .amount{font-family:var(--serif);font-size:3.2rem;font-weight:600;margin:18px 0 14px;line-height:1}
+  .price ul{list-style:none;margin-bottom:28px;flex:1}
+  .price li{padding:7px 0;border-top:1px dashed var(--line);font-size:.93rem}
+  .price li::before{content:"✎ ";color:var(--accent)}
+  .small-print{margin-top:28px;font-size:.88rem;color:var(--graphite)}
+
+  /* Process */
+  #process{background:var(--ink);color:var(--paper)}
+  #process .lede{color:#bdb5a8}
+  #process .eyebrow{color:#e0a88f}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 36px;margin-top:56px;counter-reset:step}
+  .step{counter-increment:step;border-top:1px solid #4a453e;padding-top:22px}
+  .step::before{content:counter(step,decimal-leading-zero);font-family:var(--serif);font-size:2.4rem;color:#e0a88f;display:block;line-height:1;margin-bottom:10px}
+  .step h3{font-size:1.4rem;margin-bottom:6px}
+  .step p{color:#bdb5a8;font-size:.95rem}
+  .tips{margin-top:64px;display:grid;grid-template-columns:1fr 2fr;gap:36px;background:#2e2a25;padding:36px;border-radius:var(--radius)}
+  .tips h3{font-size:1.7rem}
+  .tips ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .tips li{font-size:.95rem;color:#d5cdc0}
+  .tips li strong{display:block;color:var(--paper);font-size:1rem;margin-bottom:4px}
+
+  /* Reviews */
+  .reviews{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:48px}
+  blockquote{background:var(--mat);padding:34px;border-left:3px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0}
+  blockquote p{font-family:var(--serif);font-size:1.35rem;line-height:1.4;font-style:italic;margin-bottom:16px}
+  blockquote footer{font-size:.85rem;color:var(--graphite)}
+  .stars{color:var(--accent);letter-spacing:2px}
+
+  /* About */
+  #about{background:var(--paper-2)}
+  .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:center}
+  .about-grid .mat{transform:rotate(-1.5deg);max-width:380px}
+  .about-grid p{color:var(--graphite);margin-bottom:1em;max-width:58ch}
+  .materials{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+  .materials span{border:1px solid var(--line);background:var(--mat);padding:6px 12px;font-size:.82rem;border-radius:99px}
+
+  /* Commission form */
+  .order-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px}
+  form{background:var(--mat);padding:40px;border:1px solid var(--line);border-radius:var(--radius);display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  label{font-size:.82rem;font-weight:700;letter-spacing:.04em;display:block;margin-bottom:6px}
+  input,select,textarea{width:100%;padding:12px 14px;border:1px solid var(--line);background:var(--paper);font:inherit;font-size:.95rem;border-radius:var(--radius);color:var(--ink)}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .full{grid-column:1/-1}
+  textarea{min-height:120px;resize:vertical}
+  .form-note{font-size:.82rem;color:var(--graphite)}
+  .faq details{border-top:1px solid var(--line);padding:16px 0}
+  .faq details:last-child{border-bottom:1px solid var(--line)}
+  .faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between}
+  .faq summary::after{content:"+";color:var(--accent);font-size:1.3rem;line-height:1}
+  .faq details[open] summary::after{content:"–"}
+  .faq details p{color:var(--graphite);margin-top:8px;font-size:.95rem}
+
+  /* Footer */
+  footer.site{background:var(--ink);color:#bdb5a8;padding:56px 0 36px;font-size:.9rem}
+  .foot-grid{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:start}
+  footer.site .logo{color:var(--paper)}
+  footer.site a{color:var(--paper);text-decoration:none}
+  footer.site a:hover{color:#e0a88f}
+  .foot-links{display:flex;flex-direction:column;gap:6px}
+  .copyright{margin-top:40px;padding-top:20px;border-top:1px solid #3a352f;font-size:.8rem}
+
+  /* Lightbox */
+  .lightbox{position:fixed;inset:0;background:rgba(20,18,15,.92);display:none;align-items:center;justify-content:center;z-index:50;padding:24px}
+  .lightbox.open{display:flex}
+  .lightbox img{max-height:86vh;max-width:min(900px,100%);background:var(--mat);padding:12px}
+  .lightbox button{position:absolute;background:none;border:0;color:#fff;font-size:2.4rem;cursor:pointer;padding:12px;line-height:1}
+  .lb-close{top:14px;right:18px}
+  .lb-prev{left:10px;top:50%;transform:translateY(-50%)}
+  .lb-next{right:10px;top:50%;transform:translateY(-50%)}
+
+  /* Responsive */
+  @media (max-width:900px){
+    section{padding:72px 0}
+    .hero-grid,.about-grid,.order-grid{grid-template-columns:1fr;gap:48px}
+    .hero-art .mat{margin:0 auto}
+    .prices,.steps{grid-template-columns:1fr}
+    .reviews{grid-template-columns:1fr}
+    .tips{grid-template-columns:1fr}
+    .tips ol{grid-template-columns:1fr}
+    .menu-toggle{display:block}
+    .nav ul{display:none;position:absolute;top:70px;left:0;right:0;background:var(--paper);flex-direction:column;padding:20px;gap:18px;border-bottom:1px solid var(--line)}
+    .nav ul.open{display:flex}
+  }
+  @media (max-width:560px){
+    form{grid-template-columns:1fr;padding:26px}
+    .hero-art .note{left:0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo">Pawtrait Studio<small>by LRT · Hand drawn</small></a>
+    <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.nav ul').classList.toggle('open')">☰</button>
+    <ul>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#process">How it works</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#commission" class="btn">Commission a portrait</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Custom pet portraits · Liverpool, UK</span>
+        <h1>Every whisker, <em>drawn by hand.</em></h1>
+        <p>Timeless coloured pencil and graphite portraits of your special family member, created from your own photos with care and attention to detail. The pawfect gift, keepsake or memorial.</p>
+        <div class="hero-actions">
+          <a href="#commission" class="btn">Start your commission</a>
+          <a href="#gallery" class="btn ghost">See the gallery</a>
+        </div>
+        <div class="hero-meta">
+          <div><strong>5.0 ★</strong>from every review</div>
+          <div><strong>2–3 wks</strong>drawing time</div>
+          <div><strong>From £62</strong>mounted, ready to frame</div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="mat">
+          <img src="https://i.etsystatic.com/63840078/r/il/2c8b08/8203513136/il_794xN.8203513136_jffa.jpg" alt="Coloured pencil portrait of a black Labrador with a blue collar, mounted and displayed on a small wooden easel">
+        </div>
+        <div class="note">Progress photos &amp; videos shared as your portrait comes to life.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Recent commissions</span>
+          <h2>The gallery</h2>
+          <p class="lede">Dogs, cats, and the occasional pair of mischief-makers. Tap any portrait to see it up close.</p>
+        </div>
+        <a class="btn ghost" href="https://www.instagram.com/pawtraits_studio_by_lrt" target="_blank" rel="noopener">More on Instagram →</a>
+      </div>
+
+      <div class="gallery">
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/fb701e/8203513146/il_794xN.8203513146_34nt.jpg" alt="Black Labrador with a blue collar, coloured pencil"></div><figcaption><span>Black Labrador</span><span>Colour</span></figcaption></figure>
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/2c493c/8089599772/il_794xN.8089599772_lmay.jpg" alt="Two dachshunds side by side, coloured pencil"></div><figcaption><span>Dachshund duo</span><span>Colour · 2 pets</span></figcaption></figure>
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/7fb49f/8105296823/il_794xN.8105296823_pa5c.jpg" alt="Orange and white tabby cat with green eyes, coloured pencil"></div><figcaption><span>Ginger tabby</span><span>Colour</span></figcaption></figure>
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/ff79ba/7805006503/il_794xN.7805006503_3hwb.jpg" alt="Italian Greyhound in charcoal and graphite"></div><figcaption><span>Italian Greyhound</span><span>Graphite</span></figcaption></figure>
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/e0192b/7971864333/il_794xN.7971864333_10kn.jpg" alt="Shaggy black dog wearing a red bow tie, coloured pencil"></div><figcaption><span>Dapper in red</span><span>Colour</span></figcaption></figure>
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/25c642/7756964736/il_794xN.7756964736_shf2.jpg" alt="Golden dog with long wavy fur, coloured pencil"></div><figcaption><span>Golden girl</span><span>Colour</span></figcaption></figure>
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/547b8f/7674659897/il_794xN.7674659897_2by1.jpg" alt="Black and tan dachshund looking upward, coloured pencil"></div><figcaption><span>Black &amp; tan dachshund</span><span>Colour</span></figcaption></figure>
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/8d4d00/7712158202/il_794xN.7712158202_hrft.jpg" alt="Beagle in graphite pencil"></div><figcaption><span>Beagle</span><span>Graphite</span></figcaption></figure>
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/8811ff/8451266385/il_794xN.8451266385_omry.jpg" alt="Two black and tan dogs with blue collars, coloured pencil"></div><figcaption><span>Brothers</span><span>Colour · 2 pets</span></figcaption></figure>
+        <figure><div class="mat"><img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/37f9e6/7805014279/il_794xN.7805014279_m0eq.jpg" alt="Grey and white dog in profile, pencil"></div><figcaption><span>Grey &amp; white</span><span>Pencil</span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <span class="eyebrow">Pricing</span>
+      <h2>Choose your portrait</h2>
+      <p class="lede">Every portrait is drawn on 300gsm paper or drafting film and arrives mounted, ready for the frame of your choice. Frames aren't included, as that's such a personal choice.</p>
+
+      <div class="prices">
+        <div class="price">
+          <h3>Small</h3>
+          <span class="size">A5 · 8 × 6 in before mount · 1 pet</span>
+          <div class="amount">£62</div>
+          <ul>
+            <li>Full colour, hand drawn</li>
+            <li>Mounted, ready to frame</li>
+            <li>Progress photos along the way</li>
+          </ul>
+          <a href="#commission" class="btn ghost" data-size="Small A5 – 1 pet (£62)">Choose Small</a>
+        </div>
+        <div class="price featured">
+          <h3>Standard</h3>
+          <span class="size">A4 · 12 × 8 in before mount · 1 pet</span>
+          <div class="amount">£82</div>
+          <ul>
+            <li>Full colour, hand drawn</li>
+            <li>More room for fine fur detail</li>
+            <li>Mounted, ready to frame</li>
+            <li>Progress photos &amp; videos</li>
+          </ul>
+          <a href="#commission" class="btn" data-size="Standard A4 – 1 pet (£82)">Choose Standard</a>
+        </div>
+        <div class="price">
+          <h3>Standard duo</h3>
+          <span class="size">A4 · 12 × 8 in before mount · 2 pets</span>
+          <div class="amount">£96</div>
+          <ul>
+            <li>Two pets together on one portrait</li>
+            <li>Full colour, hand drawn</li>
+            <li>Mounted, ready to frame</li>
+            <li>Progress photos &amp; videos</li>
+          </ul>
+          <a href="#commission" class="btn ghost" data-size="Standard A4 – 2 pets (£96)">Choose Duo</a>
+        </div>
+      </div>
+      <p class="small-print">UK shipping. Drawing takes around 2–3 weeks once started; the wait before starting depends on how many orders are in the queue, and I'll confirm timings when I accept your commission. For a graphite (black &amp; white) piece or anything bespoke, just ask.</p>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <span class="eyebrow">How it works</span>
+      <h2>From photo to portrait</h2>
+      <p class="lede">You'll see your portrait take shape from the first sketch to the final details, and nothing ships until you're happy with it.</p>
+
+      <div class="steps">
+        <div class="step"><h3>Get in touch</h3><p>Send an enquiry with any questions. I'll get back to you before anything is ordered.</p></div>
+        <div class="step"><h3>Place your order</h3><p>Pick your size and number of pets, and I'll confirm timings and next steps.</p></div>
+        <div class="step"><h3>Send your photos</h3><p>Email 1–3 clear reference photos with your order reference. The better the photo, the more detail I can capture.</p></div>
+        <div class="step"><h3>Tell me the details</h3><p>A favourite collar, a wonky ear, that particular look: let me know what matters most to you.</p></div>
+        <div class="step"><h3>Watch it come to life</h3><p>Once I start drawing, I'll share progress photos and videos along the way.</p></div>
+        <div class="step"><h3>Approve &amp; receive</h3><p>You'll get a photo of the finished portrait to approve before it's carefully packed and posted.</p></div>
+      </div>
+
+      <div class="tips">
+        <div>
+          <span class="eyebrow">Photo tips</span>
+          <h3>Getting the best reference photos</h3>
+        </div>
+        <ol>
+          <li><strong>At eye level</strong>Get down to your pet's height rather than shooting from above.</li>
+          <li><strong>Natural light</strong>Near a window or outdoors, avoiding flash and harsh shadows.</li>
+          <li><strong>Sharp eyes</strong>Make sure the eyes are in focus; they carry the personality.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="wrap">
+      <span class="eyebrow">Kind words</span>
+      <h2>What owners say</h2>
+      <p class="lede">A 5-star rating from every customer so far.</p>
+      <div class="reviews">
+        <blockquote>
+          <p>“This artist has done an exceptional job at capturing our cat's cheeky little personality… to have something so personal to remind us of him means the world to me and my family.”</p>
+          <footer><span class="stars">★★★★★</span> Seren, portrait of Louie</footer>
+        </blockquote>
+        <blockquote>
+          <p>“Beautiful detail and Lottie's little character has been captured perfectly. This wonderful portrait of our very loved Lottie will be treasured always.”</p>
+          <footer><span class="stars">★★★★★</span> Lynn, portrait of Lottie</footer>
+        </blockquote>
+        <blockquote>
+          <p>“Lucy has really captured my puppy's likeness. From his fluffy, curly ears to his loving eyes. I'm absolutely delighted with my drawing.”</p>
+          <footer><span class="stars">★★★★★</span> Tim</footer>
+        </blockquote>
+        <blockquote>
+          <p>“Amazing work by Lucy. Fantastic drawing done with a lot of care and attention to detail. Great communication throughout.”</p>
+          <footer><span class="stars">★★★★★</span> James</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="mat">
+        <img loading="lazy" src="https://i.etsystatic.com/63840078/r/il/0fcebe/8105295961/il_794xN.8105295961_axd9.jpg" alt="Tabby cat portrait mounted and displayed on a wooden easel" onerror="this.src='https://i.etsystatic.com/63840078/r/il/7fb49f/8105296823/il_794xN.8105296823_pa5c.jpg'">
+      </div>
+      <div>
+        <span class="eyebrow">About the artist</span>
+        <h2>Hi, I'm Lucy.</h2>
+        <p>I'm the artist behind Pawtrait Studio by LRT, drawing pet portraits from my studio in Liverpool. Our pets are family, and I love creating something that captures who they really are: the expression, the fur, the little quirks only their people notice.</p>
+        <p>Every portrait is drawn entirely by hand, layer by layer, from your own photographs. Whether it's a gift, a celebration of a new arrival, or a memorial for a pet who's no longer with you, I treat each commission with the same care.</p>
+        <div class="materials">
+          <span>Faber-Castell Polychromos</span>
+          <span>Graphite pencils</span>
+          <span>300gsm paper</span>
+          <span>Drafting film</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMISSION -->
+  <section id="commission">
+    <div class="wrap order-grid">
+      <div>
+        <span class="eyebrow">Commissions open</span>
+        <h2>Let's draw your pet</h2>
+        <p class="lede" style="margin-bottom:32px">Tell me a little about your pet and the portrait you'd like. I'll reply personally to confirm availability, timings and how to pay.</p>
+        <div class="faq">
+          <details><summary>Do portraits come framed?</summary><p>They're mounted but not framed, so you can choose a frame that suits your home.</p></details>
+          <details><summary>How long will it take?</summary><p>Around 2–3 weeks of drawing once started. The wait before that depends on the queue, and I'll tell you when I accept your order. If it's a gift for a date, mention it!</p></details>
+          <details><summary>Can you draw a pet who has passed away?</summary><p>Of course. Memorial portraits are some of the most meaningful pieces I draw. Send the best photos you have and we'll work from those together.</p></details>
+          <details><summary>Can I return a portrait?</summary><p>As each portrait is custom made, returns aren't accepted, but you'll approve a photo of the finished piece before it ships, and if there's ever a problem, please get in touch.</p></details>
+          <details><summary>Where do you ship?</summary><p>I ship from Liverpool across the UK. For anywhere else, send a message and I'll check options.</p></details>
+        </div>
+      </div>
+
+      <form id="enquiry">
+        <div><label for="name">Your name</label><input id="name" required></div>
+        <div><label for="email">Email</label><input id="email" type="email" required></div>
+        <div><label for="pet">Pet's name</label><input id="pet" placeholder="e.g. Lottie"></div>
+        <div><label for="animal">Type of pet</label><input id="animal" placeholder="e.g. Cockapoo, tabby cat"></div>
+        <div class="full"><label for="size">Portrait</label>
+          <select id="size">
+            <option>Small A5 – 1 pet (£62)</option>
+            <option selected>Standard A4 – 1 pet (£82)</option>
+            <option>Standard A4 – 2 pets (£96)</option>
+            <option>Something bespoke – let's chat</option>
+          </select>
+        </div>
+        <div class="full"><label for="details">Anything I should know?</label><textarea id="details" placeholder="Key details to include, a date you need it by, whether it's a gift or memorial…"></textarea></div>
+        <div class="full"><button class="btn" type="submit">Send enquiry</button></div>
+        <p class="form-note full">This opens your email app with your details filled in. You can attach your reference photos to that email too, or send them once I've replied.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo">Pawtrait Studio<small>by LRT · Hand drawn</small></a>
+        <p style="margin-top:14px;max-width:34ch">Custom hand-drawn pet portraits, made in Liverpool.</p>
+      </div>
+      <div class="foot-links">
+        <a href="mailto:PawtraitsstudiobyLRT@outlook.com">PawtraitsstudiobyLRT@outlook.com</a>
+        <a href="https://www.instagram.com/pawtraits_studio_by_lrt" target="_blank" rel="noopener">Instagram @pawtraits_studio_by_lrt</a>
+        <a href="https://www.etsy.com/shop/PetPawtraitStudioLRT" target="_blank" rel="noopener">Also on Etsy</a>
+      </div>
+    </div>
+    <div class="copyright">© <span id="yr"></span> Pawtrait Studio by LRT. All artwork © Lucy, not to be reproduced without permission.</div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Portrait viewer">
+  <button class="lb-close" aria-label="Close">×</button>
+  <button class="lb-prev" aria-label="Previous">‹</button>
+  <img alt="">
+  <button class="lb-next" aria-label="Next">›</button>
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Close mobile menu after tapping a link
+  document.querySelectorAll('.nav ul a').forEach(a => a.addEventListener('click', () =>
+    document.querySelector('.nav ul').classList.remove('open')));
+
+  // Pricing buttons pre-select the portrait size in the form
+  document.querySelectorAll('[data-size]').forEach(b => b.addEventListener('click', () =>
+    document.getElementById('size').value = b.dataset.size));
+
+  // Enquiry form -> pre-filled email
+  document.getElementById('enquiry').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = id => document.getElementById(id).value.trim();
+    const subject = `Portrait enquiry${v('pet') ? ' – ' + v('pet') : ''}`;
+    const body = [
+      `Name: ${v('name')}`, `Email: ${v('email')}`, `Pet's name: ${v('pet')}`,
+      `Type of pet: ${v('animal')}`, `Portrait: ${v('size')}`, '', v('details')
+    ].join('\n');
+    location.href = `mailto:PawtraitsstudiobyLRT@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+
+  // Gallery lightbox
+  const imgs = [...document.querySelectorAll('.gallery img')];
+  const lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
+  let i = 0;
+  const show = n => { i = (n + imgs.length) % imgs.length; lbImg.src = imgs[i].src; lbImg.alt = imgs[i].alt; };
+  imgs.forEach((img, n) => img.closest('figure').addEventListener('click', () => { show(n); lb.classList.add('open'); }));
+  lb.querySelector('.lb-close').onclick = () => lb.classList.remove('open');
+  lb.querySelector('.lb-prev').onclick = e => { e.stopPropagation(); show(i - 1); };
+  lb.querySelector('.lb-next').onclick = e => { e.stopPropagation(); show(i + 1); };
+  lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('open'); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') lb.classList.remove('open');
+    if (e.key === 'ArrowLeft') show(i - 1);
+    if (e.key === 'ArrowRight') show(i + 1);
+  });
+</script>
+</body>
+</html>
