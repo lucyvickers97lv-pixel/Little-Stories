@@ -210,9 +210,14 @@
     form{grid-template-columns:1fr;padding:26px}
     .hero-art .note{left:0}
   }
+  .xmas-bar{background:var(--ink);color:var(--paper);text-align:center;font-size:.9rem;font-weight:500;letter-spacing:.02em;padding:10px 16px;line-height:1.4}
+  .xmas-bar a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+  .xmas-note{display:inline-block;margin:0 0 26px;padding:10px 16px;border:1px solid var(--accent);border-radius:var(--radius);color:var(--accent-dark);font-weight:500;background:var(--mat)}
 </style>
 </head>
 <body>
+
+<div class="xmas-bar christmas-deadline">🎄 Order by <strong>24th October</strong> for Christmas delivery · <a href="https://www.etsy.com/listing/4445005244" target="_blank" rel="noopener">Order on Etsy</a></div>
 
 <header>
   <div class="wrap nav">
@@ -307,6 +312,8 @@
       <span class="eyebrow">Pricing</span>
       <h2>Choose your portrait</h2>
       <p class="lede">Every portrait is drawn on 300gsm paper or drafting film and arrives mounted, ready for the frame of your choice. Frames aren't included, as that's such a personal choice.</p>
+
+      <p class="xmas-note christmas-deadline">🎄 Order by 24th October for Christmas delivery</p>
 
       <div class="prices">
         <div class="price featured">
@@ -515,6 +522,12 @@
     if (e.key === 'ArrowLeft') show(i - 1);
     if (e.key === 'ArrowRight') show(i + 1);
   });
+</script>
+<script>
+  // Hide the Christmas deadline once 24 October 2026 has passed (UK time)
+  if (Date.now() > Date.parse('2026-10-25T00:00:00+01:00')) {
+    document.querySelectorAll('.christmas-deadline').forEach(function(el){ el.remove(); });
+  }
 </script>
 </body>
 </html>
